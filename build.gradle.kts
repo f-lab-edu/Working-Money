@@ -24,12 +24,19 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-security")
+    // Spring Boot Core
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    
+    // Database
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5")
-    compileOnly("org.projectlombok:lombok")
     runtimeOnly("com.mysql:mysql-connector-j")
+    
+    // Development Tools
+    compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+    
+    // Testing
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.5")
     testImplementation("org.springframework.security:spring-security-test")
