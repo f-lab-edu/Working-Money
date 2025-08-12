@@ -7,7 +7,14 @@ import java.util.Optional;
 @Mapper
 public interface UserRepository {
 
-    void save(UserEntity userEntity);
+    default void save(String passwordHash, String nickname, String email) {
+        insert(new UserEntity(passwordHash, nickname, email));
+    }
+
+    /**
+     * 저장 시 save 사용 권장
+     */
+    void insert(UserEntity userEntity);
 
     Optional<UserEntity> findById(Long id);
 

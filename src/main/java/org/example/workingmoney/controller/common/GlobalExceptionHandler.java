@@ -1,0 +1,45 @@
+package org.example.workingmoney.controller.common;
+
+import org.example.workingmoney.service.auth.exception.AuthExceptionDescription;
+import org.example.workingmoney.service.common.exception.CommonExceptionDescription;
+import org.example.workingmoney.service.common.exception.CustomException;
+import org.example.workingmoney.service.common.exception.UnknownException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<Response<Void>> handleCustomException(CustomException exception) {
+        HttpStatus httpStatus = mapToHttpStatus(exception);
+        return new ResponseEntity<>(Response.error(exception), httpStatus);
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Response<Void> handleUnknown(Exception exception) {
+        return Response.error(new UnknownException());
+    }
+
+    private HttpStatus mapToHttpStatus(CustomException exception) {
+        var type = exception.getExceptionDescription();
+
+        if (type instanceof CommonExceptionDescription common) {
+            return switch (common) {
+                case UNKNOWN -> HttpStatus.INTERNAL_SERVER_ERROR;
+            };
+        }
+        if (type instanceof AuthExceptionDescription auth) {
+            return switch (auth) {
+                case Duplicated_EMAIL, Duplicated_NICKNAME -> HttpStatus.BAD_REQUEST;
+            };
+        }
+
+        return HttpStatus.INTERNAL_SERVER_ERROR;
+    }
+}
+
