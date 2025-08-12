@@ -28,7 +28,7 @@ class AuthServiceTest {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Test
-    void 회원가입_성공_테스트() {
+    void join_success_savesHashedPassword() {
         // given
         String email = "test@example.com";
         String nickname = "tester";
@@ -49,7 +49,7 @@ class AuthServiceTest {
     }
 
     @Test
-    void 이메일_중복으로_회원가입_실패_DuplicatedEmailException_throw_테스트() {
+    void join_fail_whenEmailDuplicated() {
         // given
         String email = "dup@example.com";
         String nickname = "dupNick";
@@ -67,7 +67,7 @@ class AuthServiceTest {
     }
 
     @Test
-    void 닉네임_중복으로_회원가입_실패_DuplicatedNicknameException_throw_테스트() {
+    void join_fail_whenNicknameDuplicated() {
         // given
         String email = "ok@example.com";
         String nickname = "dupNick";

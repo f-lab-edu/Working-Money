@@ -1,4 +1,4 @@
-package org.example.workingmoney.controller.common;
+package org.example.workingmoney.ui.controller.common;
 
 import org.example.workingmoney.service.common.exception.CustomException;
 

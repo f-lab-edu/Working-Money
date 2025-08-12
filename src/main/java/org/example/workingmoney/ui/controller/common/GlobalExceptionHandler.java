@@ -1,11 +1,15 @@
-package org.example.workingmoney.controller.common;
+package org.example.workingmoney.ui.controller.common;
 
 import org.example.workingmoney.service.auth.exception.AuthExceptionDescription;
 import org.example.workingmoney.service.common.exception.CommonExceptionDescription;
 import org.example.workingmoney.service.common.exception.CustomException;
+import org.example.workingmoney.service.common.exception.InvalidFormatException;
 import org.example.workingmoney.service.common.exception.UnknownException;
+import jakarta.validation.ConstraintViolationException;
+import org.springframework.validation.BindException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -17,6 +21,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Response<Void>> handleCustomException(CustomException exception) {
         HttpStatus httpStatus = mapToHttpStatus(exception);
         return new ResponseEntity<>(Response.error(exception), httpStatus);
+    }
+
+    @ExceptionHandler({MethodArgumentNotValidException.class, BindException.class, ConstraintViolationException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Response<Void> handleValidationExceptions(Exception exception) {
+        return Response.error(new InvalidFormatException());
     }
 
     @ExceptionHandler(Exception.class)
@@ -31,6 +41,7 @@ public class GlobalExceptionHandler {
         if (type instanceof CommonExceptionDescription common) {
             return switch (common) {
                 case UNKNOWN -> HttpStatus.INTERNAL_SERVER_ERROR;
+                case INVALID_FORMAT -> HttpStatus.BAD_REQUEST;
             };
         }
         if (type instanceof AuthExceptionDescription auth) {

@@ -1,7 +1,9 @@
 package org.example.workingmoney.service.common.exception;
 
 public enum CommonExceptionDescription implements ExceptionDescribable {
-    UNKNOWN(10001, "unknown");
+    UNKNOWN(10001, "unknown"),
+    INVALID_FORMAT(10002, "invalid format"),
+    ;
 
     private final int code;
     private final String defaultMessage;

@@ -1,6 +1,6 @@
-package org.example.workingmoney.controller.health;
+package org.example.workingmoney.ui.controller.health;
 
-import org.example.workingmoney.controller.common.Response;
+import org.example.workingmoney.ui.controller.common.Response;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
