@@ -6,6 +6,7 @@ import org.example.workingmoney.service.common.exception.CustomException;
 import org.example.workingmoney.service.common.exception.InvalidFormatException;
 import org.example.workingmoney.service.common.exception.UnknownException;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.validation.BindException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +24,23 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(Response.error(exception), httpStatus);
     }
 
-    @ExceptionHandler({MethodArgumentNotValidException.class, BindException.class, ConstraintViolationException.class})
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Response<Void> handleValidationExceptions(Exception exception) {
+        String message = null;
+        if (exception instanceof MethodArgumentNotValidException ex) {
+            message = ex.getBindingResult()
+                    .getAllErrors()
+                    .stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .filter(m -> m != null && !m.isBlank())
+                    .distinct()
+                    .reduce((a, b) -> a + ", " + b)
+                    .orElse(null);
+
+            return Response.error(new InvalidFormatException(message));
+        }
+
         return Response.error(new InvalidFormatException());
     }
 
