@@ -34,7 +34,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-        List<String> validatedOrigins = validateOriginsProperty();
+        List<String> validatedOrigins = validateOriginsProperty(allowedOriginsProperty);
 		configuration.setAllowedOrigins(validatedOrigins);
         // TODO: setAllowedMethods, setAllowedHeaders, setAllowCredentials 설정 추후 수정 필요
         configuration.setAllowedMethods(Collections.singletonList("*"));
@@ -67,24 +67,30 @@ public class SecurityConfig {
                 .build();
     }
 
-    private List<String> validateOriginsProperty() {
-        if (allowedOriginsProperty == null || allowedOriginsProperty.trim().isEmpty()) {
+    private List<String> validateOriginsProperty(String origins) {
+        if (origins == null || origins.trim().isEmpty()) {
             throw new IllegalStateException("CORS allowed-origins 설정이 비어 있습니다.");
         }
 
-        List<String> validatedOrigins = Arrays.stream(allowedOriginsProperty.split(","))
+        List<String> originList = Arrays.stream(origins.split(","))
                 .map(String::trim)
                 .filter(s -> !s.isEmpty())
                 .collect(Collectors.toList());
 
-        boolean hasWildcard = validatedOrigins.stream().anyMatch(origin -> origin.contains("*"));
-        if (hasWildcard) {
-            throw new IllegalStateException("CORS allowed-origins에 와일드카드(*)는 허용되지 않습니다.");
-        }
-        if (validatedOrigins.isEmpty()) {
+        originList.forEach(origin -> {
+            if (origin.contains("*")) {
+                throw new IllegalStateException(
+                        "CORS allowed-origins에 와일드카드(*)는 허용되지 않습니다.");
+            }
+            if (origin.isBlank()) {
+                throw new IllegalStateException("CORS allowed-origins에 빈값은 허용되지 않습니다.");
+            }
+        });
+
+        if (originList.isEmpty()) {
             throw new IllegalStateException("CORS allowed-origins에 유효한 값이 없습니다.");
         }
 
-        return validatedOrigins;
+        return originList;
     }
 }
