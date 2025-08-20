@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class TimeBaseEntity {
+public abstract class TimeBaseEntity {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
