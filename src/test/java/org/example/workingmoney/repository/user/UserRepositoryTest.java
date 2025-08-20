@@ -171,7 +171,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    void user_업데이트시_updatedAt_업데이트_테스트() {
+    void user_업데이트시_updatedAt_업데이트_테스트() throws InterruptedException {
 
         // given
         String password = "test";
@@ -183,6 +183,7 @@ class UserRepositoryTest {
         LocalDateTime beforeUpdatedAt = userRepository.findById(savedUserId).orElseThrow().getUpdatedAt();
 
         // when
+        Thread.sleep(1000);
         userRepository.updateNickname(savedUserId, newNickname);
 
         // then
