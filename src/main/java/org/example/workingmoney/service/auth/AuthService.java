@@ -16,11 +16,11 @@ public class AuthService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public Boolean checkEmailDuplicate(String email) {
+    public boolean checkEmailDuplicate(String email) {
         return !userRepository.existsByEmail(email);
     }
 
-    public Boolean checkNicknameDuplicate(String nickname) {
+    public boolean checkNicknameDuplicate(String nickname) {
         return !userRepository.existsByNickname(nickname);
     }
 
