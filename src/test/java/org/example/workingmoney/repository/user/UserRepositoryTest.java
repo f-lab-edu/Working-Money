@@ -26,7 +26,7 @@ class UserRepositoryTest {
         String email = "test@example.com";
 
         // when
-        userRepository.save(password, nickname, email);
+        userRepository.create(password, nickname, email);
 
         // then
         UserEntity foundByEmailUserEntity = userRepository.findByEmail(email).orElseThrow();
@@ -44,7 +44,7 @@ class UserRepositoryTest {
         String email = "test@example.com";
 
         // when
-        userRepository.save(password, nickname, email);
+        userRepository.create(password, nickname, email);
 
         // then
         UserEntity foundByEmailUserEntity = userRepository.findByEmail(email).orElseThrow();
@@ -62,7 +62,7 @@ class UserRepositoryTest {
         String password = "test";
         String nickname = "tester";
         String email = "test@example.com";
-        userRepository.save(password, nickname, email);
+        userRepository.create(password, nickname, email);
 
         // when
         UserEntity foundByEmailUserEntity = userRepository.findByEmail(email).orElseThrow();
@@ -79,7 +79,7 @@ class UserRepositoryTest {
         String password = "test";
         String nickname = "tester";
         String email = "test@example.com";
-        userRepository.save(password, nickname, email);
+        userRepository.create(password, nickname, email);
 
         // when
         UserEntity foundUserEntity = userRepository.findByEmail(email).orElseThrow();
@@ -97,7 +97,7 @@ class UserRepositoryTest {
         String password = "test";
         String nickname = "tester";
         String email = "test@example.com";
-        userRepository.save(password, nickname, email);
+        userRepository.create(password, nickname, email);
 
         // when
         UserEntity foundUserEntity = userRepository.findByNickname(nickname).orElseThrow();
@@ -114,7 +114,7 @@ class UserRepositoryTest {
         String password = "test";
         String nickname = "tester";
         String email = "exist@example.com";
-        userRepository.save(password, nickname, email);
+        userRepository.create(password, nickname, email);
 
         // when & then
         assertTrue(userRepository.existsByEmail(email));
@@ -127,7 +127,7 @@ class UserRepositoryTest {
         String password = "test";
         String nickname = "tester-exists";
         String email = "tester-exists@example.com";
-        userRepository.save(password, nickname, email);
+        userRepository.create(password, nickname, email);
 
         // when & then
         assertTrue(userRepository.existsByNickname(nickname));
@@ -142,7 +142,7 @@ class UserRepositoryTest {
         String nickname = "tester";
         String email = "test@example.com";
         String newNickname = "tester2";
-        userRepository.save(password, nickname, email);
+        userRepository.create(password, nickname, email);
 
         // when
         Long savedUserId = userRepository.findByEmail(email).orElseThrow().getId();
@@ -162,7 +162,7 @@ class UserRepositoryTest {
         String email = "test@example.com";
 
         // when
-        userRepository.save(password, nickname, email);
+        userRepository.create(password, nickname, email);
 
         // then
         Long savedUserId = userRepository.findByEmail(email).orElseThrow().getId();
@@ -178,7 +178,7 @@ class UserRepositoryTest {
         String nickname = "tester";
         String email = "test@example.com";
         String newNickname = "tester2";
-        userRepository.save(password, nickname, email);
+        userRepository.create(password, nickname, email);
         Long savedUserId = userRepository.findByEmail(email).orElseThrow().getId();
         LocalDateTime beforeUpdatedAt = userRepository.findById(savedUserId).orElseThrow().getUpdatedAt();
 
@@ -201,7 +201,7 @@ class UserRepositoryTest {
         String password = "test";
         String nickname = "tester";
         String email = "test@example.com";
-        userRepository.save(password, nickname, email);
+        userRepository.create(password, nickname, email);
 
         // when
         Long savedUserId = userRepository.findByEmail(email).orElseThrow().getId();

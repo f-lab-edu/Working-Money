@@ -45,7 +45,7 @@ class AuthServiceTest {
         verify(userRepository, times(1)).existsByEmail(email);
         verify(userRepository, times(1)).existsByNickname(nickname);
         verify(passwordEncoder, times(1)).encode(rawPassword);
-        verify(userRepository, times(1)).save(hashedPassword, nickname, email);
+        verify(userRepository, times(1)).create(hashedPassword, nickname, email);
     }
 
     @Test
@@ -63,7 +63,7 @@ class AuthServiceTest {
         verify(userRepository, times(1)).existsByEmail(email);
         verify(userRepository, never()).existsByNickname(anyString());
         verify(passwordEncoder, never()).encode(anyString());
-        verify(userRepository, never()).save(anyString(), anyString(), anyString());
+        verify(userRepository, never()).create(anyString(), anyString(), anyString());
     }
 
     @Test
@@ -82,6 +82,6 @@ class AuthServiceTest {
         verify(userRepository, times(1)).existsByEmail(email);
         verify(userRepository, times(1)).existsByNickname(nickname);
         verify(passwordEncoder, never()).encode(anyString());
-        verify(userRepository, never()).save(anyString(), anyString(), anyString());
+        verify(userRepository, never()).create(anyString(), anyString(), anyString());
     }
 }

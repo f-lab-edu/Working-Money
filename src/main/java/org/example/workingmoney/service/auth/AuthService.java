@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.workingmoney.repository.user.UserRepository;
 import org.example.workingmoney.service.auth.exception.DuplicatedEmailException;
 import org.example.workingmoney.service.auth.exception.DuplicatedNicknameException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +33,6 @@ public class AuthService {
         }
 
         String hashedPassword = bCryptPasswordEncoder.encode(password);
-        userRepository.save(hashedPassword, nickname, email);
+        userRepository.create(hashedPassword, nickname, email);
     }
 }

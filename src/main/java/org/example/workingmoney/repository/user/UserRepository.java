@@ -7,7 +7,7 @@ import java.util.Optional;
 @Mapper
 public interface UserRepository {
 
-    default void save(String passwordHash, String nickname, String email) {
+    default void create(String passwordHash, String nickname, String email) {
         insert(new UserEntity(passwordHash, nickname, email));
     }
 
