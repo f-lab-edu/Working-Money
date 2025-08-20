@@ -21,7 +21,7 @@ class UserRepositoryTest {
     void user_저장시_id_자동_생성_테스트() {
 
         // given
-        String password = "password";
+        String password = "rawPassword";
         String nickname = "name";
         String email = "test@example.com";
 

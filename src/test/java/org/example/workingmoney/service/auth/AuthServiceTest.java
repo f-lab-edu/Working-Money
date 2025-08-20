@@ -53,7 +53,7 @@ class AuthServiceTest {
         // given
         String email = "dup@example.com";
         String nickname = "dupNick";
-        String rawPassword = "password!";
+        String rawPassword = "rawPassword!";
 
         when(userRepository.existsByEmail(email)).thenReturn(true);
 
@@ -71,7 +71,7 @@ class AuthServiceTest {
         // given
         String email = "ok@example.com";
         String nickname = "dupNick";
-        String rawPassword = "password!";
+        String rawPassword = "rawPassword!";
 
         when(userRepository.existsByEmail(email)).thenReturn(false);
         when(userRepository.existsByNickname(nickname)).thenReturn(true);

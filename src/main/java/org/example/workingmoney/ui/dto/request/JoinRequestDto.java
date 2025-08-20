@@ -7,7 +7,7 @@ import org.example.workingmoney.common.validation.ValidPassword;
 public record JoinRequestDto(
         @ValidEmail String email,
         @ValidNickname String nickname,
-        @ValidPassword String password
+        @ValidPassword String rawPassword
 ) {
 
 }

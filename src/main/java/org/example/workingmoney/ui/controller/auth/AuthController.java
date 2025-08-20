@@ -19,7 +19,7 @@ public class AuthController {
 
     @PostMapping("/join")
     public Response<Void> join(@RequestBody @Valid JoinRequestDto joinRequestDto) {
-        authService.join(joinRequestDto.email(), joinRequestDto.nickname(), joinRequestDto.password());
+        authService.join(joinRequestDto.email(), joinRequestDto.nickname(), joinRequestDto.rawPassword());
         return Response.ok(null);
     }
 }

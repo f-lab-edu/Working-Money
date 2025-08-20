@@ -37,7 +37,7 @@ class AuthControllerTest {
             {
               "email": "test@example.com",
               "nickname": "tester1",
-              "password": "Password1234"
+              "rawPassword": "Password1234"
             }
             """;
 
@@ -60,7 +60,7 @@ class AuthControllerTest {
             {
               "email": "not-an-email",
               "nickname": "tester1",
-              "password": "Password1234"
+              "rawPassword": "Password1234"
             }
             """;
 
@@ -81,7 +81,7 @@ class AuthControllerTest {
             {
               "email": "test@example.com",
               "nickname": "a",
-              "password": "Password1234"
+              "rawPassword": "Password1234"
             }
             """;
 
@@ -102,7 +102,7 @@ class AuthControllerTest {
             {
               "email": "test@example.com",
               "nickname": "tester1",
-              "password": "short1"
+              "rawPassword": "short1"
             }
             """;
 
