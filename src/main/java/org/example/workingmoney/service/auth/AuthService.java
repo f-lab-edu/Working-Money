@@ -25,6 +25,10 @@ public class AuthService {
 
     @Transactional
     public void join(String email, String nickname, String password) {
+
+        userRepository.lockByEmail(email);
+        userRepository.lockByNickname(nickname);
+
         if (userRepository.existsByEmail(email)) {
             throw new DuplicatedEmailException();
         }

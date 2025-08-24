@@ -26,6 +26,10 @@ public interface UserRepository {
 
     boolean existsByNickname(String nickname);
 
+    void lockByEmail(String email);
+
+    void lockByNickname(String nickname);
+
     void updateNickname(Long id, String nickname);
 
     void deleteById(Long id);

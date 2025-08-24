@@ -43,6 +43,20 @@
     )
   </select>
 
+  <select id="lockByEmail" resultType="long">
+    select id
+    from user
+    where email = #{email}
+    for update
+  </select>
+
+  <select id="lockByNickname" resultType="long">
+    select id
+    from user
+    where nickname = #{nickname}
+    for update
+  </select>
+
   <update id="updateNickname">
     update user
     set nickname = #{nickname},

@@ -41,6 +41,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.5")
     testImplementation("org.springframework.security:spring-security-test")
+    testCompileOnly("org.projectlombok:lombok")
+    testAnnotationProcessor("org.projectlombok:lombok")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
